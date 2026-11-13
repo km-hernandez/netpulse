@@ -2,7 +2,7 @@
 
 A lightweight, real-time **network monitor dashboard**. It probes the hosts and services you care about, records latency / loss / jitter in SQLite, samples your machine's interface throughput, and streams everything live to a dependency-free web UI.
 
-![CI](https://github.com/OWNER/netpulse/actions/workflows/ci.yml/badge.svg)
+![CI](https://github.com/km-hernandez/netpulse/actions/workflows/ci.yml/badge.svg)
 
 ## Features
 
