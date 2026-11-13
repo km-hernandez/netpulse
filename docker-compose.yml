@@ -1,0 +1,12 @@
+services:
+  netpulse:
+    build: .
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./config.toml:/app/config.toml:ro
+      - netpulse-data:/data
+    restart: unless-stopped
+
+volumes:
+  netpulse-data:

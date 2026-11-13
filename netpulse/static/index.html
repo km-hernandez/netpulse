@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NetPulse</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><path d='M2 17h7l3-8 5 15 4-11 2 4h7' fill='none' stroke='%2322d3a6' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/></svg>">
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M2 17h7l3-8 5 15 4-11 2 4h7"/></svg>
+      <span>NetPulse</span>
+    </div>
+    <div class="host" id="host">—</div>
+    <div class="spacer"></div>
+    <div class="window" role="group" aria-label="Stats window">
+      <button data-min="15">15m</button>
+      <button data-min="60" class="active">1h</button>
+      <button data-min="360">6h</button>
+      <button data-min="1440">24h</button>
+    </div>
+    <div class="live" id="live"><span class="dot"></span><span class="label">connecting</span></div>
+    <button class="theme" id="theme" title="Toggle theme" aria-label="Toggle theme">◐</button>
+  </header>
+
+  <main>
+    <section class="kpis">
+      <div class="kpi"><div class="k-label">Targets up</div><div class="k-value" id="k-up">—</div><div class="k-sub" id="k-up-sub"></div></div>
+      <div class="kpi"><div class="k-label">Avg latency</div><div class="k-value" id="k-lat">—</div><div class="k-sub" id="k-lat-sub"></div></div>
+      <div class="kpi"><div class="k-label">Packet loss</div><div class="k-value" id="k-loss">—</div><div class="k-sub" id="k-loss-sub"></div></div>
+      <div class="kpi"><div class="k-label">Download</div><div class="k-value rx" id="k-rx">—</div><div class="k-sub" id="k-rx-sub"></div></div>
+      <div class="kpi"><div class="k-label">Upload</div><div class="k-value tx" id="k-tx">—</div><div class="k-sub" id="k-tx-sub"></div></div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head">
+        <h2>Interface throughput</h2>
+        <div class="legend"><span class="sw rx"></span>Download <span class="sw tx"></span>Upload <span class="muted">· last 5 min</span></div>
+      </div>
+      <div class="chart-wrap tall"><canvas id="bw-chart"></canvas><div class="tip" id="bw-tip"></div></div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head">
+        <h2>Targets</h2>
+        <div class="legend"><span class="pill ok">up</span><span class="pill warn">degraded</span><span class="pill bad">down</span></div>
+      </div>
+      <div class="grid" id="targets"></div>
+    </section>
+
+    <section class="panel hidden" id="detail">
+      <div class="panel-head">
+        <h2 id="d-title">—</h2>
+        <button class="close" id="d-close" aria-label="Close detail">✕</button>
+      </div>
+      <div class="d-stats" id="d-stats"></div>
+      <div class="chart-wrap tall"><canvas id="d-chart"></canvas><div class="tip" id="d-tip"></div></div>
+      <h3>Recent failures</h3>
+      <table class="events"><thead><tr><th>Time</th><th>Detail</th></tr></thead><tbody id="d-events"></tbody></table>
+    </section>
+  </main>
+
+  <footer>NetPulse · FastAPI + SSE · <a href="/docs">API docs</a></footer>
+
+  <template id="card-tpl">
+    <article class="card" tabindex="0">
+      <div class="c-head">
+        <span class="status"></span>
+        <div class="c-title"><div class="c-name"></div><div class="c-endpoint"></div></div>
+        <span class="badge"></span>
+      </div>
+      <div class="c-main">
+        <div class="c-latency"><span class="v"></span><span class="u">ms</span></div>
+        <canvas class="spark"></canvas>
+      </div>
+      <div class="beats"></div>
+      <dl class="c-stats">
+        <div><dt>Uptime</dt><dd class="s-up"></dd></div>
+        <div><dt>p95</dt><dd class="s-p95"></dd></div>
+        <div><dt>Jitter</dt><dd class="s-jit"></dd></div>
+        <div><dt>Loss</dt><dd class="s-loss"></dd></div>
+      </dl>
+      <div class="c-detail"></div>
+    </article>
+  </template>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

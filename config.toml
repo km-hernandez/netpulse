@@ -1,0 +1,50 @@
+# NetPulse configuration
+# Check types: ping | tcp | dns | http
+
+[general]
+db_path = "netpulse.db"
+retention_hours = 24
+bandwidth_interval = 1      # seconds between interface throughput samples
+
+[defaults]
+interval = 5                # seconds between checks
+timeout = 2                 # seconds
+latency_warn_ms = 150       # above this, the target shows as "degraded"
+
+[[targets]]
+name = "Cloudflare DNS"
+type = "ping"
+host = "1.1.1.1"
+
+[[targets]]
+name = "Google DNS"
+type = "ping"
+host = "8.8.8.8"
+
+[[targets]]
+name = "GitHub HTTPS"
+type = "tcp"
+host = "github.com"
+port = 443
+
+[[targets]]
+name = "DNS lookup: github.com"
+type = "dns"
+host = "github.com"
+latency_warn_ms = 80
+
+[[targets]]
+name = "GitHub API"
+type = "http"
+url = "https://api.github.com"
+interval = 15
+timeout = 4
+latency_warn_ms = 600
+
+[[targets]]
+name = "Example.com"
+type = "http"
+url = "https://example.com"
+interval = 15
+timeout = 4
+latency_warn_ms = 600
