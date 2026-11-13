@@ -54,9 +54,9 @@ host = "github.com"
 port = 443
 
 [[targets]]
-name = "GitHub API"
+name = "GitHub"
 type = "http"
-url = "https://api.github.com"
+url = "https://github.com"
 interval = 15
 ```
 

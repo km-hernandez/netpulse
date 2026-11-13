@@ -34,9 +34,9 @@ host = "github.com"
 latency_warn_ms = 80
 
 [[targets]]
-name = "GitHub API"
+name = "GitHub"
 type = "http"
-url = "https://api.github.com"
+url = "https://github.com"
 interval = 15
 timeout = 4
 latency_warn_ms = 600
